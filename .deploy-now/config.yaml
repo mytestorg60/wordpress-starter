@@ -14,7 +14,7 @@ deploy:
   # configuration part, which is taken at ALL FURTHER deployments of this branch
   recurring:
     excludes:
-
+    - ./
     # commands that are executed at the real webspace NOT at build servers BEFORE copying new files
     pre-deployment-remote-commands:
 
