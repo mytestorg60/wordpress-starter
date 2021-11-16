@@ -32,3 +32,9 @@ jobs:
           remote-host: ${{ steps.project.outputs.remote-host }}
           service-host: api-eu.ionos.space
           storage-quota: ${{ steps.project.outputs.storage-quota }}
+          wp-db-name: ${{ secrets.WP_DB_NAME }}
+          wp-db-user: ${{ secrets.WP_DB_USER }}
+          wp-db-password: ${{ secrets.WP_DB_PASSWORD }}
+          wp-db-host: ${{ secrets.WP_DB_HOST }}
+          wp-db-charset: ${{ secrets.WP_DB_CHARSET }}
+          wp-db-callate: ${{ secrets.WP_DB_COLLATE }}

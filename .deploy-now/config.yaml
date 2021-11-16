@@ -9,6 +9,8 @@ deploy:
     # commands that are executed at the real webspace NOT at build servers AFTER copying new files
     post-deployment-remote-commands:
     - wp core download
+    - wp config create --dbname=${{ secrets.WP_DB_NAME }} --dbuser=${{ secrets.WP_DB_USER }} --dbpass=${{ secrets.WP_DB_PASSWORD }} --dbhost=${{ secrets.WP_DB_HOST }} --dbcharset=${{ secrets.WP_DB_CHARSET }}
+    - wp core install --admin_user=${{ secrets.WP_ADMIN_USER }} --admin_user=${{ secrets.WP_ADMIN_EMAIL }}
   # configuration part, which is taken at ALL FURTHER deployments of this branch
   recurring:
     excludes:
@@ -17,3 +19,6 @@ deploy:
     pre-deployment-remote-commands:
 
     post-deployment-remote-commands:
+    - wp core update
+    - wp plugin update --all
+    - wp theme update --all
