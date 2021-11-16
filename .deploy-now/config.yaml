@@ -8,7 +8,7 @@ deploy:
 
     # commands that are executed at the real webspace NOT at build servers AFTER copying new files
     post-deployment-remote-commands:
-
+    - wp core download
   # configuration part, which is taken at ALL FURTHER deployments of this branch
   recurring:
     excludes:
