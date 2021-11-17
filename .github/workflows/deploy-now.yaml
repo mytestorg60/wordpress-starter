@@ -25,7 +25,7 @@ jobs:
         uses: fmunirdev/envvar-to-dotenv-action@v0.2.0
         with:
           target: .env
-          variableNames: WP_DB_NAME,WP_DB_NAME,WP_DB_PASSWORD,WP_DB_HOST,WP_DB_CHARSET,WP_ADMIN_USER,WP_ADMIN_EMAIL
+          variableNames: WP_DB_NAME,WP_DB_USER,WP_DB_PASSWORD,WP_DB_HOST,WP_DB_CHARSET,WP_ADMIN_USER,WP_ADMIN_EMAIL,WP_ADMIN_PASSWORD,WP_DB_PREFIX,WP_SITE_URL,WP_TITLE
         env:
           WP_DB_NAME: ${{ secrets.WP_DB_NAME }}
           WP_DB_USER: ${{ secrets.WP_DB_USER }}
@@ -34,6 +34,10 @@ jobs:
           WP_DB_CHARSET: ${{ secrets.WP_DB_CHARSET }}
           WP_ADMIN_USER: ${{ secrets.WP_ADMIN_USER }}
           WP_ADMIN_EMAIL: ${{ secrets.WP_ADMIN_EMAIL }}
+          WP_ADMIN_PASSWORD: ${{ secrets.WP_ADMIN_PASSWORD }}
+          WP_DB_PREFIX: ${{ github.ref_name }}_
+          WP_SITE_URL: ${{ steps.project.outputs.site-url }}
+          WP_TITLE: "WordpressTitle"
       - name: Deploy build
         if: ${{ steps.project.outputs.deployment-enabled == 'true' }}
         uses: ionos-deploy-now/deploy-to-ionos-action@v1

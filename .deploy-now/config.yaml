@@ -1,6 +1,5 @@
 version: 1.0
 deploy:
-
   # configuration part, which is taken at the FIRST deployment of each branch
   bootstrap:
     # folders that are not copied to IONOS webspace
@@ -9,12 +8,14 @@ deploy:
     # commands that are executed at the real webspace NOT at build servers AFTER copying new files
     post-deployment-remote-commands:
     - wp core download
-    - source .env; wp config create --dbname=${WP_DB_NAME} --dbuser=${WP_DB_USER} --dbpass=${WP_DB_PASSWORD} --dbhost=${WP_DB_HOST} --dbcharset=${WP_DB_CHARSET}
-    - source .env; wp core install --admin_user=${WP_ADMIN_USER} --admin_user=${WP_ADMIN_EMAIL}
+    - source .env; wp config create --dbname=${WP_DB_NAME} --dbuser=${WP_DB_USER} --dbpass=${WP_DB_PASSWORD} --dbhost=${WP_DB_HOST} --dbcharset=${WP_DB_CHARSET} --dbprefix=${WP_DB_PREFIX}
+    - source .env;  if [ $(wp core is-installed) ]; then wp db clean --yes --dbuser=${WP_DB_USER} --dbpass=${WP_DB_PASSWORD}; fi
+    - source .env; wp core install --admin_user=${WP_ADMIN_USER} --admin_email=${WP_ADMIN_EMAIL} --url=${WP_SITE_URL} --title=${WP_TITLE} --admin_password=${WP_ADMIN_PASSWORD}
+    - rm .env
   # configuration part, which is taken at ALL FURTHER deployments of this branch
   recurring:
     excludes:
-    - ./
+    - .
     # commands that are executed at the real webspace NOT at build servers BEFORE copying new files
     pre-deployment-remote-commands:
 
